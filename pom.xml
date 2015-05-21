@@ -1,0 +1,468 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>my-webserice-client</artifactId>
+	<groupId>com.ai</groupId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+		<!-- 定义项目字符集编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+
+		<!-- 定义Maven插件版本 -->
+		<maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+		<maven-resources-plugin.version>2.5</maven-resources-plugin.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
+		<maven-surefire-plugin.version>2.8</maven-surefire-plugin.version>
+		<maven-war-plugin.version>2.3</maven-war-plugin.version>
+		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		
+			<!-- 定义是否检测重复类 -->
+		<duplicatefinder.skip>true</duplicatefinder.skip>
+		<maven.mirror.url>http://121.41.128.145:8088/content/</maven.mirror.url>
+
+
+		<!-- 依赖版本 -->
+		<!-- spring -->
+		<org.springframework.version>4.0.5.RELEASE</org.springframework.version>
+		<com.springsource.org.aspectj.weaver.version>1.7.2.RELEASE</com.springsource.org.aspectj.weaver.version>
+		
+		<!-- mybatis -->
+		<org.mybatis.version>3.2.7</org.mybatis.version>
+		<mybatis-spring.version>1.2.2</mybatis-spring.version>
+		
+		<!-- http -->
+		<httpasyncclient.version>4.0.1</httpasyncclient.version>
+		
+		<!-- view -->
+		<sitemesh.version>2.4.2</sitemesh.version>
+		<freemarker.version>2.3.20</freemarker.version>
+		<!-- DB、cache、事务 -->
+		<mysql.version>5.1.30</mysql.version>
+		<com.springsource.org.logicalcobwebs.proxool.version>0.9.1</com.springsource.org.logicalcobwebs.proxool.version>
+		<druid.version>1.0.8</druid.version>
+		<jedis.version>2.6.2</jedis.version>
+		<jta.version>1.1</jta.version>
+		<transactions-jdbc.version>3.9.3</transactions-jdbc.version>
+		<!-- log -->
+		<log4j.version>1.2.16</log4j.version>
+		<org.slf4j.version>1.6.1</org.slf4j.version>
+		<!-- 序列化 -->
+		<jackson.version>2.4.4</jackson.version>
+		<kryo.version>2.24.0</kryo.version>
+		<woodstox-core-asl.version>4.4.1</woodstox-core-asl.version>
+		<!-- javax -->
+		<javax.annotation.version>1.1.0.v201105051105</javax.annotation.version>
+		<javax.validation.version>1.0.0.GA</javax.validation.version>
+		
+		
+		<!-- common 
+		<commons-httpclient.version>3.1</commons-httpclient.version>
+		-->
+		<commons-lang.version>2.6</commons-lang.version>
+		<commons-fileupload.version>1.2.2</commons-fileupload.version>
+		<commons-io.version>2.1</commons-io.version>
+		<commons-collections.version>3.2</commons-collections.version>
+		<commons-codec.version>1.9</commons-codec.version>
+		<commons-pool.version>1.6</commons-pool.version>
+		
+		<!-- tomcat -->
+		<tomcat.version>7.0.8</tomcat.version>
+		
+		<!-- other -->
+		<pinyin4j.version>2.5.0</pinyin4j.version>
+		<poi-ooxml.version>3.8</poi-ooxml.version>
+		<hibernate-validator.version>4.1.0.Final</hibernate-validator.version>
+		<junit.version>3.8.1</junit.version>
+		<aopalliance.version>1.0</aopalliance.version>
+		<aspectjweaver.version>1.8.0</aspectjweaver.version>
+		<apache-poi>3.10-FINAL</apache-poi>
+		<urlrewrite.version>3.1.0</urlrewrite.version>
+		<jmagick.version>6.6.9</jmagick.version>
+		<!-- CXF -->
+		<cxf.version>3.0.5</cxf.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>${tomcat.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${org.springframework.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>com.springsource.org.aspectj.weaver</artifactId>
+			<version>${com.springsource.org.aspectj.weaver.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${freemarker.version}</version>
+		</dependency>
+		<!-- Jackson JSON Mapper -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.woodstox</groupId>
+			<artifactId>woodstox-core-asl</artifactId>
+			<version>${woodstox-core-asl.version}</version>
+		</dependency>
+		
+		<!-- JSR 303 with Hibernate Validator -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${javax.validation.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>sitemesh</artifactId>
+			<version>${sitemesh.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis-spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${org.mybatis.version}</version>
+		</dependency>
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${org.slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${org.slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation</artifactId>
+			<version>${javax.annotation.version}</version>
+		</dependency>
+
+		<!-- commons -->
+		<dependency>
+			<groupId>commons-pool</groupId>
+			<artifactId>commons-pool</artifactId>
+			<version>${commons-pool.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>${commons-lang.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi-ooxml.version}</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>stax-api</artifactId>
+					<groupId>stax</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons-collections.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>${commons-fileupload.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware.kryo</groupId>
+			<artifactId>kryo</artifactId>
+			<version>${kryo.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.belerweb</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>${pinyin4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>jmagick</groupId>
+			<artifactId>jmagick</artifactId>
+			<version>${jmagick.version}</version>
+		</dependency>
+
+	    <dependency>
+	        <groupId>org.apache.cxf</groupId>
+	        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+	        <version>${cxf.version}</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.apache.cxf</groupId>
+	        <artifactId>cxf-rt-transports-http</artifactId>
+	        <version>${cxf.version}</version>
+	    </dependency>
+	        <!-- Jetty is needed if you're are not using the CXFServlet 
+	    <dependency>
+	        <groupId>org.apache.cxf</groupId>
+	        <artifactId>cxf-rt-transports-http-jetty</artifactId>
+	        <version>${cxf.version}</version>
+	    </dependency>
+		-->
+
+	</dependencies>
+	<build>
+		<finalName>my-webserice-client</finalName>
+		<pluginManagement>
+			<plugins>
+
+				<!-- 定义JDK版本 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<source>1.7</source>
+						<target>1.7</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>${maven-resources-plugin.version}</version>
+				</plugin>
+
+				<!-- 定义单元测试标准 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven-surefire-plugin.version}</version>
+					<configuration>
+						<skip>false</skip>
+						<skipTests>false</skipTests>
+						<testFailureIgnore>false</testFailureIgnore>
+					</configuration>
+				</plugin>
+				<!-- 生成MD5文件 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-antrun-plugin</artifactId>
+					<version>${maven-antrun-plugin.version}</version>
+					<executions>
+						<execution>
+							<phase>package</phase>
+							<configuration>
+								<!-- 必须设定failOnError=false，否则build会报“至少需要一个文件”错误 -->
+								<failOnError>false</failOnError>
+								<target>
+									<checksum>
+										<fileset dir="target">
+											<include name="*" />
+										</fileset>
+									</checksum>
+								</target>
+							</configuration>
+							<goals>
+								<goal>run</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
+					<configuration>
+						<warName>${project.artifactId}-${project.version}</warName>
+						<archive>
+							<index>true</index>
+							<manifest>
+								<addClasspath>true</addClasspath>
+							</manifest>
+							<manifestEntries>
+								<Specification-Vendor>The Store Corp.</Specification-Vendor>
+							</manifestEntries>
+							<manifestSections>
+								<manifestSection>
+									<name>Build Information</name>
+									<manifestEntries>
+										<Project>${project.artifactId}</Project>
+										<ProjectVersion>${project.version}</ProjectVersion>
+										<svnRevision>${SVN.committedRevision}</svnRevision>
+										<BuildTime>${timestamp}</BuildTime>
+										<BaseLine>${project.artifactId}-${project.version}-${SVN.committedRevision}-${timestamp}</BaseLine>
+									</manifestEntries>
+								</manifestSection>
+								<manifestSection>
+									<name>Job Information</name>
+									<manifestEntries>
+										<JobURL>${JOB_URL}</JobURL>
+										<JobBuildURL>${BUILD_URL}</JobBuildURL>
+									</manifestEntries>
+								</manifestSection>
+							</manifestSections>
+						</archive>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<excludes>
+					<exclude>config/dev/</exclude>
+					<!-- 
+					<exclude>config/prod/</exclude>
+					<exclude>config/test/</exclude>
+					 -->
+				</excludes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>config/${active.profile}/**</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+	<profiles>
+		<!-- 开发/测试本地环境，默认激活 -->
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<active.profilename>dev</active.profilename>
+			</properties>
+		</profile>
+		<!-- 测试环境 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<active.profilename>test</active.profilename>
+				<active.driverClass>com.mysql.jdbc.Driver</active.driverClass>
+				<active.name>confdata</active.name>
+				<active.pwd>123456</active.pwd>
+				<active.url>jdbc:mysql://113.57.196.18:23306/DB_CONFCENT?characterEncoding=utf8</active.url>
+				<active.createPropertyFile>false</active.createPropertyFile>
+				<active.autoReload>true</active.autoReload>
+			</properties>
+		</profile>
+		<!-- 生产环境 -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<active.profilename>prod</active.profilename>
+			</properties>
+		</profile>
+	</profiles>	
+</project>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	
+	<!-- 短信上行处理service
+	<jaxws:server id="smsNotification" address="/SmsNotification"
+		serviceClass="com.ai.rrt.push.gateway.sms.gateway.ctc.wsdl.notif.SmsNotification">
+		<jaxws:serviceBean>
+			 <ref bean="smsNotificationImpl"/>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	-->
+	<jaxws:client id="userService" serviceClass="com.ai.webservice.client.UserService" 
+        address="http://127.0.0.1/services/UserService"/>
+	
+	<!-- 订购关系同步service 
+	<jaxws:server id="ismpSpEngine" address="/IsmpSpEngine"
+		serviceClass="com.ai.rrt.push.gateway.sms.gateway.ctc.wsdl.ismp.IsmpSpEngineImpl">
+		<jaxws:serviceBean>
+			 <ref bean="ismpSpEngineImpl"/>
+		</jaxws:serviceBean>
+	</jaxws:server>
+	-->
+</beans>

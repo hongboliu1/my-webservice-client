@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ai.pan.dao.pan.PanResMapper" >
+  <resultMap id="BaseResultMap" type="com.ai.pan.model.pan.ResBean" >
+    <id column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="fileid" property="fileid" jdbcType="VARCHAR" />
+    <result column="yn" property="yn" jdbcType="INTEGER" />
+    <result column="created" property="created" jdbcType="TIMESTAMP" />
+    <result column="convert" property="convert" jdbcType="INTEGER" />
+    <result column="ext" property="ext" jdbcType="VARCHAR" />
+    <result column="contentType" property="contentType" jdbcType="VARCHAR" />
+  </resultMap>
+   <sql id="Base_Column_List" >
+     uid,fileid,yn,created,`convert`,ext,contentType
+  </sql>
+   <!-- 插入一行配置记录 -->
+  <insert id="insert" parameterType="com.ai.pan.model.pan.ResBean"  >
+    insert into pan_res ( uid,fileid,yn,created,`convert`,ext,contentType)
+    values (#{uid,jdbcType=VARCHAR}, #{fileid,jdbcType=VARCHAR}, #{yn,jdbcType=INTEGER},
+    now(), #{convert,jdbcType=INTEGER},  #{ext,jdbcType=VARCHAR},#{contentType,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pan_res
+    where uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  
+
+</mapper>
